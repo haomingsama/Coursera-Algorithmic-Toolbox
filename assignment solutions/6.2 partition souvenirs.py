@@ -7,6 +7,8 @@ def partitions(W, n, items):
     (int, int, list) -> (int) """
     count = 0 
     value = numpy.zeros((W+1, n+1))
+    w = W//3
+    mult = 1
     for i in range(1, W+1):
         for j in range(1, n+1):
             value[i][j] = value[i][j-1]
@@ -14,7 +16,9 @@ def partitions(W, n, items):
                 temp = value[i-items[j-1]][j-1] + items[j-1]
                 if temp > value[i][j]:
                     value[i][j] = temp
-            if value[i][j] == W: count += 1
+            if value[i][j] ==mult* W: 
+                count += 1
+                mult  += 1
 
     if count < 3: print('0')
     else: print('1')
@@ -28,5 +32,5 @@ if __name__ == '__main__':
     elif total_weight%3 != 0: 
         print('0')
     else:
-        partitions(total_weight//3, n, item_weights)
+        partitions(total_weight, n, item_weights)
         
